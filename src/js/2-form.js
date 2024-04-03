@@ -1,8 +1,7 @@
-// 2-form.js
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.feedback-form');
 
-    // Function to save form data to localStorage
+
     const saveFormDataToLocalStorage = () => {
         const formData = {
             email: form.email.value,
@@ -11,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('feedback-form-state', JSON.stringify(formData));
     };
 
-    // Function to load form data from localStorage
+
     const loadFormDataFromLocalStorage = () => {
         const savedData = localStorage.getItem('feedback-form-state');
         if (savedData) {
@@ -21,15 +20,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Load form data from localStorage when the page loads
+
     loadFormDataFromLocalStorage();
 
-    // Save form data to localStorage on input
+
     form.addEventListener('input', saveFormDataToLocalStorage);
 
-    // Clear localStorage and form fields on form submit
+
     form.addEventListener('submit', (event) => {
         event.preventDefault();
+        if (form.email.value.trim() === '' || form.message.value.trim() === '') {
+            alert('Будь ласка, заповніть всі поля.');
+            return;
+        }
         console.log({
             email: form.email.value,
             message: form.message.value
